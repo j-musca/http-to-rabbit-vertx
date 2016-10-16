@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+group 'org.musca'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.vertx:vertx-core:3.3.3"
+    compile "io.vertx:vertx-web:3.3.3"
+    compile "io.vertx:vertx-redis-client:3.3.3"
+    compile "io.vertx:vertx-rabbitmq-client:3.3.3"
+    compile "io.vertx:vertx-rx-java:3.3.3"
+
+    testCompile "junit:junit:4.12"
+}
+
+mainClassName = 'org.musca.ExampleMain'
+
+shadowJar {
+    classifier = 'fat'
+    mergeServiceFiles {
+        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+    }
+}
